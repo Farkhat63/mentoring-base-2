@@ -1,13 +1,7 @@
 <div class="container">
-    <div style=" display: flex; flex-wrap: wrap; gap: 20px; padding: 30px 0;">
-        <article *ngFor='let user of users' class="goods">
-            <h5><a href="">{{user.name}}</a></h5>
-            <p><span>{{user.phone}}</span></p>
-            <p><span>{{user.company.name}}</span></p>
-            <p><span>{{user.email}}</span></p>
-            <p><span>{{user.username}}</span></p>
-            <p><span>{{user.website}}</span></p>
-            <button (click)="deleteUser(user.id)">Delete</button>
-        </article>
+    <div class="wrapper">
+        <ng-container  *ngFor='let user of usersService.users$ | async' >
+          <app-user-card [user]="user" (deleteUser)="deleteUser($event)"></app-user-card>
+        </ng-container>
     </div>
 </div>

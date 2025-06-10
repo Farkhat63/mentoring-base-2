@@ -1,29 +1,28 @@
-import { NgFor } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { AsyncPipe, NgFor } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { UsersService } from '../../users.service';
+import { UserCardComponent } from "./user-card/user-card.component";
+import { User } from '../../types/user.model';
 
 @Component({
   selector: 'app-users-list',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, AsyncPipe, UserCardComponent],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss'
 })
 export class UsersListComponent {
-  private readonly http = inject(HttpClient);
+  public usersService = inject(UsersService)
 
-  public users: any = [];
+  ngOnInit(): void {
+    this.usersService.loadUsers()
+  }
 
-  constructor() {
-    this.http.get('https://jsonplaceholder.typicode.com/users').subscribe((r) => {
-      this.users = r,
-      console.log(r);
-    })
+  openDialogCreateUser() {
+    // this.usersService.createUser(result)
   }
 
   deleteUser(id: number) {
-    this.users = this.users.filter((user: any) => {
-      return user.id !== id
-    })
+    this.usersService.deleteUser(id)
   }
 }

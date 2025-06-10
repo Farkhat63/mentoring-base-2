@@ -1,0 +1,10 @@
+<article class="goods">
+    <h5>{{user.name}}</h5>
+    <p>{{user.phone}}</p>
+    <p>{{user.company.name}}</p>
+    <p>{{user.email}}</p>
+    <p>{{user.username}}</p>
+    <p>{{user.website}}</p>
+    <button (click)="onDeleteUser(user.id)">Delete</button>
+    <button (click)="openDialogEditUser()">Edit</button>
+</article>
