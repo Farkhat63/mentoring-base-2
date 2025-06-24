@@ -13,7 +13,7 @@
 
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Телефон</mat-label>
-    <input matInput placeholder="Телефон" formControlName="phone">
+    <input matInput placeholder="Телефон" formControlName="phone" placeholder="89831030000">
     <mat-error *ngIf="userForm.get('phone')?.hasError('required') && (userForm.get('phone')?.dirty || userForm.get('phone')?.touched)">
       Телефон обязателен
     </mat-error>
@@ -37,7 +37,7 @@
 
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Email</mat-label>
-    <input matInput type="email" placeholder="Email" formControlName="email">
+    <input matInput type="email" placeholder="qwe12@mail.ru" formControlName="email">
     <mat-error *ngIf="userForm.get('email')?.hasError('required') && (userForm.get('email')?.dirty || userForm.get('email')?.touched)">
       Email обязателен
     </mat-error>
@@ -48,7 +48,7 @@
 
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Вебсайт</mat-label>
-    <input matInput placeholder="Вебсайт" formControlName="website">
+    <input matInput placeholder="https://chatgpt.com/" formControlName="website">
     <mat-error *ngIf="userForm.get('website')?.hasError('required') && (userForm.get('website')?.dirty || userForm.get('website')?.touched)">
       Вебсайт обязателен
     </mat-error>

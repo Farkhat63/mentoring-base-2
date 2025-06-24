@@ -15,19 +15,19 @@ import { JsonPipe, NgIf } from '@angular/common';
   templateUrl: './user-form-gialog.component.html',
   styleUrl: './user-form-gialog.component.scss'
 })
-export class UserFormGialogComponent implements OnInit{
-  private readonly dialogRef = inject(MatDialogRef<UserFormGialogComponent>);
+export class CreateEditUserDialogComponent implements OnInit{
+  private readonly dialogRef = inject(MatDialogRef<CreateEditUserDialogComponent>);
   public readonly data = inject(MAT_DIALOG_DATA);
 
   public userForm = new FormGroup({
     id: new FormControl(new Date().getTime(), [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    phone: new FormControl('89831030000', [Validators.required, Validators.pattern(/^\+?[0-9\-()\s]{7,15}$/)]),
+    phone: new FormControl('', [Validators.required, Validators.pattern(/^\+?[0-9\-()\s]{7,15}$/)]),
     company: new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(2)])
     }),
-    email: new FormControl('qwe12@mail.ru', [Validators.required, Validators.email]),
-    website: new FormControl('https://chatgpt.com/', [Validators.required, Validators.pattern(
+    email: new FormControl('', [Validators.required, Validators.email]),
+    website: new FormControl('', [Validators.required, Validators.pattern(
         /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/\S*)?$/
       )])
   })

@@ -4,7 +4,7 @@ import { UsersService } from '../../users.service';
 import { UserCardComponent } from "./user-card/user-card.component";
 import { User } from '../../types/user.model';
 import { MatDialog } from '@angular/material/dialog';
-import { UserFormGialogComponent } from '../dialog/user-form-gialog/user-form-gialog.component';
+import { CreateEditUserDialogComponent } from '../dialog/user-form-gialog/user-form-gialog.component';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
@@ -23,8 +23,8 @@ export class UsersListComponent {
     this.usersService.loadUsers()
   }
 
-  openDialogUserForm(user?: User) {
-    this.dialog.open(UserFormGialogComponent, {
+  createEditUserDialog(user?: User) {
+    this.dialog.open(CreateEditUserDialogComponent, {
       data: {
         user: user
       }
