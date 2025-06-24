@@ -1,7 +1,12 @@
 <div class="container">
-    <div class="wrapper">
-        <ng-container  *ngFor='let user of usersService.users$ | async' >
-          <app-user-card [user]="user" (deleteUser)="deleteUser($event)"></app-user-card>
-        </ng-container>
-    </div>
+  <button mat-raised-button color="primary" (click)="openDialogUserForm()">Создать пользователя</button>
+  <div class="wrapper" fxLayout="row wrap" fxLayoutGap="1rem">
+    <ng-container *ngFor="let user of usersService.users$ | async">
+      <app-user-card
+        [user]="user"
+        (deleteUser)="deleteUser($event)"
+        (editUser)="openDialogUserForm($event)">
+      </app-user-card>
+    </ng-container>
+  </div>
 </div>

@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  padding: 20px;
+}
+.user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 320px;
+  }
+  .full-width {
+    width: 100%;
+  }
+  .button-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+  }

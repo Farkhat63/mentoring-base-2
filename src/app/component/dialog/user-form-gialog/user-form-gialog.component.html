@@ -1,0 +1,64 @@
+<h2 mat-dialog-title>{{data.user ? 'Редактировать' : 'Создать'}} пользователя</h2>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Имя</mat-label>
+    <input matInput placeholder="Имя" formControlName="name">
+    <mat-error *ngIf="userForm.get('name')?.hasError('required') && (userForm.get('name')?.dirty || userForm.get('name')?.touched)">
+      Имя обязательно
+    </mat-error>
+    <mat-error *ngIf="userForm.get('name')?.hasError('minlength') && (userForm.get('name')?.dirty || userForm.get('name')?.touched)">
+      Минимум 2 символа
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Телефон</mat-label>
+    <input matInput placeholder="Телефон" formControlName="phone">
+    <mat-error *ngIf="userForm.get('phone')?.hasError('required') && (userForm.get('phone')?.dirty || userForm.get('phone')?.touched)">
+      Телефон обязателен
+    </mat-error>
+    <mat-error *ngIf="userForm.get('phone')?.hasError('pattern') && (userForm.get('phone')?.dirty || userForm.get('phone')?.touched)">
+      Некорректный формат телефона
+    </mat-error>
+  </mat-form-field>
+
+  <div formGroupName="company">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Компания</mat-label>
+      <input matInput placeholder="Компания" formControlName="name">
+      <mat-error *ngIf="userForm.get('company.name')?.hasError('required') && (userForm.get('company.name')?.dirty || userForm.get('company.name')?.touched)">
+        Компания обязательна
+      </mat-error>
+      <mat-error *ngIf="userForm.get('company.name')?.hasError('minlength') && (userForm.get('company.name')?.dirty || userForm.get('company.name')?.touched)">
+        Минимум 2 символа
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" placeholder="Email" formControlName="email">
+    <mat-error *ngIf="userForm.get('email')?.hasError('required') && (userForm.get('email')?.dirty || userForm.get('email')?.touched)">
+      Email обязателен
+    </mat-error>
+    <mat-error *ngIf="userForm.get('email')?.hasError('email') && (userForm.get('email')?.dirty || userForm.get('email')?.touched)">
+      Некорректный email
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Вебсайт</mat-label>
+    <input matInput placeholder="Вебсайт" formControlName="website">
+    <mat-error *ngIf="userForm.get('website')?.hasError('required') && (userForm.get('website')?.dirty || userForm.get('website')?.touched)">
+      Вебсайт обязателен
+    </mat-error>
+    <mat-error *ngIf="userForm.get('website')?.hasError('pattern') && (userForm.get('website')?.dirty || userForm.get('website')?.touched)">
+      Некорректный формат сайта
+    </mat-error>
+  </mat-form-field>
+
+  <div class="button-row">
+    <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">OK</button>
+    <button mat-button mat-dialog-close type="button">Отмена</button>
+  </div>
+</form>

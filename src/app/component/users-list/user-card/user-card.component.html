@@ -1,10 +1,15 @@
-<article class="goods">
-    <h5>{{user.name}}</h5>
-    <p>{{user.phone}}</p>
-    <p>{{user.company.name}}</p>
-    <p>{{user.email}}</p>
-    <p>{{user.username}}</p>
-    <p>{{user.website}}</p>
-    <button (click)="onDeleteUser(user.id)">Delete</button>
-    <button (click)="openDialogEditUser()">Edit</button>
-</article>
+<mat-card class="user-card">
+  <mat-card-header>
+    <mat-card-title>{{ user.name }}</mat-card-title>
+    <mat-card-subtitle>{{ user.company.name }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p><mat-icon>phone</mat-icon> {{ user.phone }}</p>
+    <p><mat-icon>email</mat-icon> {{ user.email }}</p>
+    <p><mat-icon>public</mat-icon> {{ user.website }}</p>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button color="primary" (click)="onEditUser(user)">Edit</button>
+    <button mat-button color="warn" (click)="onDeleteUser(user.id)">Delete</button>
+  </mat-card-actions>
+</mat-card>
