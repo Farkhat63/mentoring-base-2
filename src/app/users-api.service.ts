@@ -8,21 +8,7 @@ import { User } from './types/user.model';
 export class UsersApiService {
   private readonly http = inject(HttpClient);
 
-  constructor() { }
-
   getUsers() {
     return this.http.get<User[]>('https://jsonplaceholder.typicode.com/users');
-  }
-
-  deleteUser() {
-
-  }
-
-  createUser() {
-
-  }
-
-  editUser() {
-
   }
 }
