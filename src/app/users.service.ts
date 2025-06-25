@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { User } from './types/user.model';
 import { BehaviorSubject } from 'rxjs';
 import { UsersApiService } from './users-api.service';
+import { UsersLocalStorageService } from './users-local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,30 +12,45 @@ export class UsersService {
   public readonly users$ = this.usersSubject$.asObservable()
 
   private readonly usersApiService = inject(UsersApiService)
+  private readonly usersLocalStorageService = inject(UsersLocalStorageService);
 
   loadUsers() {
-    this.usersApiService.getUsers().subscribe(
-      (response: User[]) => {
-        this.usersSubject$.next(response)
-      }
-    )
+    const localUsers = this.usersLocalStorageService.loadUsers();
+    if (localUsers) {
+      this.usersSubject$.next(localUsers);
+    } else {
+      this.usersApiService.getUsers().subscribe(
+        (response: User[]) => {
+          this.usersSubject$.next(response);
+          this.usersLocalStorageService.saveUsers(response);
+        }
+      )
+    }
   }
 
   deleteUser(id: number) {
-    this.usersSubject$.next(this.usersSubject$.value.filter(user => user.id !== id))
+    const updated = this.usersSubject$.value.filter((user: User) => user.id !== id);
+    this.usersSubject$.next(updated);
+    this.usersLocalStorageService.saveUsers(updated);
   }
 
   createUser(newUser: User) {
-    this.usersSubject$.value.find( user => user.email !== newUser.email)
-    ? this.usersSubject$.next([ ...this.usersSubject$.value, newUser ])
-    : alert('Пользователь с таким email уже существет.')
+    if (this.usersSubject$.value.find((user: User) => user.email === newUser.email)) {
+      alert('Пользователь с таким email уже существет.');
+      return;
+    }
+    const updated = [ ...this.usersSubject$.value, newUser ];
+    this.usersSubject$.next(updated);
+    this.usersLocalStorageService.saveUsers(updated);
   }
 
   editUser(editUser: User) {
-    this.usersSubject$.next(this.usersSubject$.value.map(
-      user => user.id == editUser.id
+    const updated = this.usersSubject$.value.map(
+      (user: User) => user.id == editUser.id
       ? editUser
       : user
-    ))
+    );
+    this.usersSubject$.next(updated);
+    this.usersLocalStorageService.saveUsers(updated);
   }
 }

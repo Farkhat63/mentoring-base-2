@@ -21,7 +21,7 @@ export class HeaderComponent {
 
   changeMenuText () {
       this.catalogItems = upperCaseMenuItems.map(
-        item => this.isUpperCase ? item.toLowerCase() : item.toUpperCase()
+        ( item: string ) => this.isUpperCase ? item.toLowerCase() : item.toUpperCase()
       )
 
       this.isUpperCase = !this.isUpperCase
@@ -31,7 +31,7 @@ export class HeaderComponent {
 
 const catalogItems = ['Каталог','Стройматериалы','Инструменты','Электрика','Интерьер и одежда'];
 const upperCaseMenuItems = catalogItems.map(
-  (item) => {
+  ( item: string ) => {
     return item.toUpperCase()
   }
 )
