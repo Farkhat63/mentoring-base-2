@@ -4,11 +4,13 @@ import { UsersService } from '../../../users.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { TruncateTitlePipe } from '../../../pipes/truncate-title.pipe';
+import { RemoveDashesPipe } from '../../../pipes/remove-dashes.pipe';
 
 @Component({
   selector: 'app-user-card',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, MatIconModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, TruncateTitlePipe, RemoveDashesPipe],
   templateUrl: './user-card.component.html',
   styleUrl: './user-card.component.scss'
 })

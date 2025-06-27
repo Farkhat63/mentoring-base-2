@@ -1,11 +1,11 @@
-import { NgFor, NgIf, } from '@angular/common';
+import { DatePipe, NgFor, NgIf, } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NgFor, NgIf, RouterModule],
+  imports: [NgFor, NgIf, RouterModule, DatePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -27,6 +27,7 @@ export class HeaderComponent {
       this.isUpperCase = !this.isUpperCase
   }
 
+  public data = new Date().getDate()
 }
 
 const catalogItems = ['Каталог','Стройматериалы','Инструменты','Электрика','Интерьер и одежда'];

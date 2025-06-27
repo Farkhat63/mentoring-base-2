@@ -14,6 +14,7 @@
                     <button (click)="isShowCatalog=!isShowCatalog">Каталог on/off</button>
                 </nav>
             </div>
+            {{ data | date:'medium' }}
             <div class="header__right">
                 <button routerLink = '/users' class="header-user">
                     <p>Пользователи</p>
