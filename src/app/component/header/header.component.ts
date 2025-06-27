@@ -1,11 +1,12 @@
 import { DatePipe, NgFor, NgIf, } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { EditColorDirective } from '../../directive/edit-color.directive';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NgFor, NgIf, RouterModule, DatePipe],
+  imports: [NgFor, NgIf, RouterModule, DatePipe, EditColorDirective],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

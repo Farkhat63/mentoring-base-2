@@ -6,11 +6,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { TruncateTitlePipe } from '../../../pipes/truncate-title.pipe';
 import { RemoveDashesPipe } from '../../../pipes/remove-dashes.pipe';
+import { EditBoxShadowDirective } from '../../../directive/edit-box-shadow.directive';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-user-card',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, MatIconModule, TruncateTitlePipe, RemoveDashesPipe],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, TruncateTitlePipe, RemoveDashesPipe, EditBoxShadowDirective, MatTooltipModule],
   templateUrl: './user-card.component.html',
   styleUrl: './user-card.component.scss'
 })

@@ -1,4 +1,4 @@
-<mat-card class="user-card">
+<mat-card class="user-card" appEditBoxShadow>
   <mat-card-header>
     <mat-card-title>{{ user.name | truncateTitle }}</mat-card-title>
     <mat-card-subtitle>{{ user.company.name }}</mat-card-subtitle>
@@ -9,7 +9,7 @@
     <p><mat-icon>public</mat-icon> {{ user.website }}</p>
   </mat-card-content>
   <mat-card-actions align="end">
-    <button mat-button color="primary" (click)="onEditUser(user)">Edit</button>
+    <button matTooltip="Редактировать данные пользователя" mat-button color="primary" (click)="onEditUser(user)">Edit</button>
     <button mat-button color="warn" (click)="onDeleteUser(user.id)">Delete</button>
   </mat-card-actions>
 </mat-card>
