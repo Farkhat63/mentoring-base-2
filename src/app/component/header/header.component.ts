@@ -1,7 +1,8 @@
 import { DatePipe, NgFor, NgIf, } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EditColorDirective } from '../../directive/edit-color.directive';
+import { AuthServiceService } from '../../auth-service.service';
 
 @Component({
   selector: 'app-header',
@@ -11,22 +12,13 @@ import { EditColorDirective } from '../../directive/edit-color.directive';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  isUpperCase = true;
-  isShowCatalog = true;
+  public AuthServiceService = inject(AuthServiceService)
 
   readonly headerItem1 = headerItem1;
   readonly aboutCompany = company(headerItem2);
   readonly headerItem3 = headerItem3;
 
   catalogItems = upperCaseMenuItems
-
-  changeMenuText () {
-      this.catalogItems = upperCaseMenuItems.map(
-        ( item: string ) => this.isUpperCase ? item.toLowerCase() : item.toUpperCase()
-      )
-
-      this.isUpperCase = !this.isUpperCase
-  }
 
   public data = new Date().getDate()
 }

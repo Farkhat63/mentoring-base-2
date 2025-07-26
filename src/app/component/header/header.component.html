@@ -9,12 +9,13 @@
                     <ul class="header-ul">
                         <li class="header-items"><a routerLink="/">{{headerItem1}}</a></li>
                         <li class="header-items"><a href="#" onclick="event.preventDefault()" onclick="event.preventDefault()">{{aboutCompany}}</a></li>
-                        <li class="header-items" *ngIf="isShowCatalog"><a href="#" onclick="event.preventDefault()">{{headerItem3}}</a></li>
+                        <li class="header-items"><a href="#" onclick="event.preventDefault()">{{headerItem3}}</a></li>
                     </ul>
-                    <button (click)="isShowCatalog=!isShowCatalog">Каталог on/off</button>
                 </nav>
             </div>
-            {{ data | date:'medium' }}
+            <button (click)="this.AuthServiceService.loginAsUser()" routerLink="/" class="header-button">войти как юзер</button>
+            <button (click)="this.AuthServiceService.loginAsAdmin()" routerLink="/admin" class="header-button">войти как администратор</button>
+            <button *ngIf="this.AuthServiceService.isAdmin()" (click)="this.AuthServiceService.logout()" routerLink="/" class="header-button">Выйти</button>
             <div class="header__right">
                 <button routerLink = '/users' class="header-user">
                     <p>Пользователи</p>
@@ -38,7 +39,6 @@
             <div class="catalog__left">
                 <ul class="catalog-ul">
                     <li *ngFor='let catalogItem of catalogItems'><a href="#" onclick="event.preventDefault()"><img src="/assets/light.svg" alt="|||">{{catalogItem}}</a></li>
-                    <button (click)="changeMenuText()" >toLowerCase/toUpperCase</button>
                 </ul>
             </div>
             <div class="catalog__right">
