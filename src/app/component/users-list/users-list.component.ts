@@ -1,11 +1,15 @@
 import { AsyncPipe, NgFor } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { UsersService } from '../../users.service';
 import { UserCardComponent } from "./user-card/user-card.component";
 import { User } from '../../types/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEditUserDialogComponent } from '../dialog/user-form-gialog/user-form-gialog.component';
 import { MatButtonModule } from '@angular/material/button';
+import { Store } from '@ngrx/store';
+import { UsersApiService } from '../../users-api.service';
+import { UsersLocalStorageService } from '../../users-local-storage.service';
+import { UsersActions } from '../../store/user/user.actions';
+import { selectUsers } from '../../store/user/user.selectors';
 
 @Component({
   selector: 'app-users-list',
@@ -17,10 +21,18 @@ import { MatButtonModule } from '@angular/material/button';
 export class UsersListComponent {
   readonly dialog = inject(MatDialog);
 
-  public usersService = inject(UsersService)
+  private readonly usersLocalStorageService = inject(UsersLocalStorageService);
+  private readonly usersApiService = inject(UsersApiService)
+  private readonly store = inject(Store)
+  public readonly users$ = this.store.select(selectUsers)
 
   ngOnInit(): void {
-    this.usersService.loadUsers()
+    this.usersApiService.getUsers().subscribe(
+        (response: User[]) => {
+          this.store.dispatch(UsersActions.load({ users: response }));
+          this.usersLocalStorageService.saveUsers(response);
+        }
+      )
   }
 
   createEditUserDialog(user?: User) {
@@ -31,12 +43,14 @@ export class UsersListComponent {
     })
     .afterClosed().subscribe(result => {
       if (result) {
-      !!user ? this.usersService.editUser(result) : this.usersService.createUser(result)
+      }
+      if (result) {
+      !!user ? this.store.dispatch(UsersActions.edit({ user: result })) : this.store.dispatch(UsersActions.create({ user: result }))
       }
     })
   }
 
   deleteUser(id: number) {
-    this.usersService.deleteUser(id)
+    this.store.dispatch(UsersActions.delete({ id }) )
   }
 }

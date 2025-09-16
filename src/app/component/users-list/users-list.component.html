@@ -1,7 +1,7 @@
 <div class="container">
   <button mat-raised-button color="primary" (click)="createEditUserDialog()">Создать пользователя</button>
   <div class="wrapper" fxLayout="row wrap" fxLayoutGap="1rem">
-    <ng-container *ngFor="let user of usersService.users$ | async">
+    <ng-container *ngFor="let user of users$ | async">
       <app-user-card
         [user]="user"
         (deleteUser)="deleteUser($event)"
