@@ -1,13 +1,11 @@
 import { AsyncPipe, NgFor } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserCardComponent } from "./user-card/user-card.component";
 import { User } from '../../types/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEditUserDialogComponent } from '../dialog/user-form-gialog/user-form-gialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
-import { UsersApiService } from '../../users-api.service';
-import { UsersLocalStorageService } from '../../users-local-storage.service';
 import { UsersActions } from '../../store/user/user.actions';
 import { selectUsers } from '../../store/user/user.selectors';
 
@@ -18,21 +16,14 @@ import { selectUsers } from '../../store/user/user.selectors';
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss'
 })
-export class UsersListComponent {
+export class UsersListComponent implements OnInit {
   readonly dialog = inject(MatDialog);
 
-  private readonly usersLocalStorageService = inject(UsersLocalStorageService);
-  private readonly usersApiService = inject(UsersApiService)
   private readonly store = inject(Store)
   public readonly users$ = this.store.select(selectUsers)
 
   ngOnInit(): void {
-    this.usersApiService.getUsers().subscribe(
-        (response: User[]) => {
-          this.store.dispatch(UsersActions.load({ users: response }));
-          this.usersLocalStorageService.saveUsers(response);
-        }
-      )
+    this.store.dispatch(UsersActions.loadUsers());
   }
 
   createEditUserDialog(user?: User) {
